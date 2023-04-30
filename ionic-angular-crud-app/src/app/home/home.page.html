@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="text-center">
+      <ion-buttons>
+        <ion-button routerLink="/home">
+          <ion-icon name="logo-vimeo"></ion-icon>
+        </ion-button>
+
+      </ion-buttons>
+    </ion-title>
+    <ion-buttons slot="end" *ngIf="loggedIn()">
+      <ion-button (click)="logout()">Cerrar Sesion</ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end" *ngIf="loggedIn()">
+      <ion-button routerLink="/profile">{{currentuser.NAME}}</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <span class="already">{{currentuser.EMAIL}}</span>
+  <ion-grid>
+    <ion-row>
+      <ion-col align-self-center>
+        <ion-button [routerLink]="['/register']" expand="block" color="favorite">Registrarse</ion-button>
+        <span class="already">Usuario existente?</span>
+        <ion-button [routerLink]="['/login']" expand="block" color="favorite">Iniciar Sesion</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-list class="ios list-ios hydrated">
+    <ion-list-header class="ios hydrated">
+      Lista de Productos
+    </ion-list-header>
+    <ion-item *ngFor="let song of Songs" class="item-label item ios in-list ion-focusable hydrated">
+      <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s ios hydrated">
+        <h2>{{song.song_name}}</h2>
+        <h3>{{song.artist}}</h3>
+      </ion-label>
+      <div class="item-note" item-end>
+        <button ion-button clear [routerLink]="['/edit-song/', song._id]">
+          <ion-icon name="create" style="zoom:2.0"></ion-icon>
+        </button>
+        <button ion-button clear (click)="deleteSong(song, song._id)">
+          <ion-icon name="trash" style="zoom:2.0"></ion-icon>
+        </button>
+      </div>
+    </ion-item>
+  </ion-list>
+
+  <!-- fab placed to the bottom start -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" routerLink="/add-song">
+    <ion-fab-button color="favorite">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
